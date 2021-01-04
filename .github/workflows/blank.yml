@@ -9,4 +9,4 @@ jobs:
       - name: curl
         uses: wei/curl@v1.1.1    
         with:
-          args: --insecure https://jacate.70533df3.shooteram.fr:8000 --data '${{toJSON(github)}}' -H "Authorization:\ ${{secrets.AUTHORIZATION}}" -H "Content-Type:\ application/json"
+          args: --request GET --insecure https://jacate.70533df3.shooteram.fr:8000 -H "Authorization:\ ${{secrets.AUTHORIZATION}}" -H "Content-Type:\ application/json" --data $(echo '${{toJSON(github)}}' | base64)
