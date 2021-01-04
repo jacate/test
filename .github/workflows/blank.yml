@@ -9,11 +9,7 @@ jobs:
       - name: set things
         id: x
         run: |
-          ghobj="$(echo '${{toJSON(github)}}' | base64)"
-          ghobj="${ghobj//'%'/'%25'}"
-          ghobj="${ghobj//$'\n'/'%0A'}"
-          ghobj="${ghobj//$'\r'/'%0D'}"
-          echo $ghobj
+          ghobj="$(echo '${{toJSON(github)}}' | base64 -w 0)"
           echo "::set-output name=ghobj::$ghobj"
         shell: bash
 
