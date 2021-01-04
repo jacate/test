@@ -8,7 +8,13 @@ jobs:
     steps:
       - name: set things
         id: x
-        run: echo "::set-output name=ghobj::$(echo '${{toJSON(github)}}' | base64)"
+        run: |
+          ghobj="$(echo '${{toJSON(github)}}' | base64)"
+          ghobj="${ghobj//'%'/'%25'}"
+          ghobj="${ghobj//$'\n'/'%0A'}"
+          ghobj="${ghobj//$'\r'/'%0D'}"
+          echo $ghobj
+          echo "::set-output name=ghobj::$ghobj"
         shell: bash
 
       - name: curl
