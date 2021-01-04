@@ -6,7 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: set things
+        id: x
+        run: echo "::set-output name=ghobj::$(echo '${{toJSON(github)}}' | base64)"
+        shell: bash
+
       - name: curl
         uses: wei/curl@v1.1.1    
         with:
-          args: --request GET --insecure https://jacate.70533df3.shooteram.fr:8000 -H "Authorization:\ ${{secrets.AUTHORIZATION}}" -H "Content-Type:\ application/json" --data $(echo '${{toJSON(github)}}' | base64)
+          args: --request GET --insecure https://jacate.70533df3.shooteram.fr:8000 -H "Authorization:\ ${{secrets.AUTHORIZATION}}" -H "Content-Type:\ application/json" --data ${{ steps.x.outputs.ghobj }}
